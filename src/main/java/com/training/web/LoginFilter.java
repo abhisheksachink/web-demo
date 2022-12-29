@@ -11,11 +11,15 @@ import java.util.Scanner;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
+
+import com.training.web.service.LoginService;
+import com.training.web.service.LoginServiceImpl;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -46,31 +50,34 @@ public class LoginFilter extends HttpFilter implements Filter {
 		// place your code here
 		response.setContentType("text/html");
 		PrintWriter out =response.getWriter();
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		
+		String userName = request.getParameter("uName");
+		String password1 = request.getParameter("pasw");
+	
+		LoginService service = new LoginServiceImpl();
+		
+
+		if(userName.equals("") || password1.equals("")) {
+			out.print("<h2>**Please enter username and password**</h2> <br>");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/index.html");
+			rd.include(request, response);
+				
 		}
+		
+		else if(service.isValidUser(userName, password1)) {
+			request.setAttribute("user1", userName);
+			chain.doFilter(request, response);
 
-        String url = "jdbc:mysql://localhost:3306/infinite";
-        String user = "root";
-        String password = "india@123";
-        Connection con = null;
-
-        try {
-            con = DriverManager.getConnection(url, user, password);
-            if(con!=null)
-            System.out.println("connected jdbc");
-            
-            //for input and output procedure
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
+		}
+		
+		
+		else {
+			out.print("<h2>** Incorrect Login Credentials **</h2> ");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/index.html");
+			rd.include(request, response);
+		}
 	}
 
 	/**
