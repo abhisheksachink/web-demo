@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,16 +18,16 @@ import com.training.web.model.Product;
 import com.training.web.model.User;
 
 /**
- * Servlet implementation class LoginDetailServlet
+ * Servlet implementation class ProductServlet
  */
-@WebServlet("/LoginFilter")
-public class LoginDetailServlet extends HttpServlet {
+@WebServlet("/ProductServlet")
+public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginDetailServlet() {
+    public ProductServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,27 +39,15 @@ public class LoginDetailServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		String user = (String)request.getAttribute("user1");
-		out.print("<h1>Welcome "+user+"! You are successfully logged in </h1>");
-		LoginDao dao = new LoginDaoImpl();
 		ProductDao dao1 = new ProductDaoImpl();
-		List<User> userList = dao.getUsers();
 		List<Product> productList=dao1.getProducts();
 		
 		
-		out.print("<table border='1'> <tr><th>Product Id</th><th>Product Name</th><th>Product Description</th><th>Price</th><th>Click for add Product</th>");
+		out.print("<h3>Product Added Successfully</h3>");
 		
-		for (Product product : productList) {
-			out.print("<tr><td>"+product.getProdId()+"</td><td>"+product.getProdName()+"</td><td>"+product.getProdDesc()+"</td><td>"+product.getPrice()+"</td><td><a href=\"/web-demo/ProductServlet\">Add</a></td><tr>");
-			
-			
-//			if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
-//				isValid = true;
-//			}
-		}
-		out.print("</table>");
 		
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpFilter;
 
 /**
@@ -53,6 +54,7 @@ public class FilterServlet extends HttpFilter implements Filter {
 		else {
 			request.setAttribute("user", username);
 			// pass the request along the filter chain
+			
 			chain.doFilter(request, response);
 			
 		}
