@@ -46,12 +46,15 @@ public class LoginDetailServlet extends HttpServlet {
 		ProductDao dao1 = new ProductDaoImpl();
 		List<User> userList = dao.getUsers();
 		List<Product> productList=dao1.getProducts();
-		
-		
+		Product p1=new Product();
+
+		out.print("<a href=\"/web-demo/add.html\">Add Product</a>");
+		out.print("<a href=\"/web-demo/delete.html\">Delete Product</a>");
 		out.print("<table border='1'> <tr><th>Product Id</th><th>Product Name</th><th>Product Description</th><th>Price</th><th>Click for add Product</th>");
 		
 		for (Product product : productList) {
-			out.print("<tr><td>"+product.getProdId()+"</td><td>"+product.getProdName()+"</td><td>"+product.getProdDesc()+"</td><td>"+product.getPrice()+"</td><td><a href=\"/web-demo/ProductServlet\">Add</a></td><tr>");
+			out.print("<tr><td>"+product.getProdId()+"</td><td>"+product.getProdName()+"</td><td>"+product.getProdDesc()+"</td><td>"+product.getPrice()+"</td><td><a href='ProductDelete?id="+p1.getProdId()+"'>Delete</a></td><tr>");
+			
 			
 			
 //			if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
