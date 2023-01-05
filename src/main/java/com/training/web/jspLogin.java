@@ -1,30 +1,28 @@
 package com.training.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.training.web.dao.ProductDao;
-import com.training.web.dao.ProductDaoImpl;
-import com.training.web.model.Product;
+import com.training.web.service.LoginService;
+import com.training.web.service.LoginServiceImpl;
 
 /**
- * Servlet implementation class updateServlet
+ * Servlet implementation class jspLogin
  */
-@WebServlet("/updateServlet")
-public class updateServlet extends HttpServlet {
+@WebServlet("/jspLogin")
+public class jspLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public updateServlet() {
+    public jspLogin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,13 +32,23 @@ public class updateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		ProductDao dao1 = new ProductDaoImpl();
-		List<Product> productList=dao1.getProducts();
+		String userId = request.getParameter("userid");
+		String phone = request.getParameter("phone");
+
+		LoginService service = new LoginServiceImpl();
+		if(((LoginServiceImpl) service).isValidUser(userId, phone)) {
+			RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+			rd.include(request, response);
+
+
+		}
+		else {
+			RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
+			rd.include(request, response);
+			
+		}
 		
-		productList.add(null);
-		out.print("<h3>Product updated Successfully</h3>");;
+		
 	}
 
 	/**

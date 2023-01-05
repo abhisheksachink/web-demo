@@ -2,7 +2,6 @@ package com.training.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,21 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.training.web.dao.ProductDao;
-import com.training.web.dao.ProductDaoImpl;
-import com.training.web.model.Product;
-
 /**
- * Servlet implementation class updateServlet
+ * Servlet implementation class RegisterServlet
  */
-@WebServlet("/updateServlet")
-public class updateServlet extends HttpServlet {
+@WebServlet("/RegisterServlet")
+public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public updateServlet() {
+    public RegisterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,12 +30,11 @@ public class updateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		ProductDao dao1 = new ProductDaoImpl();
-		List<Product> productList=dao1.getProducts();
+		PrintWriter out =response.getWriter();
 		
-		productList.add(null);
-		out.print("<h3>Product updated Successfully</h3>");;
+		String userID = request.getParameter("user");
+		String phone = request.getParameter("phone");
+		out.print("WElcome "+userID+" Successfully Registered");
 	}
 
 	/**

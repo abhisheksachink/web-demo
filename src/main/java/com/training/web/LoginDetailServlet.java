@@ -50,6 +50,7 @@ public class LoginDetailServlet extends HttpServlet {
 
 		out.print("<a href=\"/web-demo/add.html\">Add Product</a>");
 		out.print("<a href=\"/web-demo/delete.html\">Delete Product</a>");
+		out.print("<a href=\"/web-demo/update.html\">Update Product</a>");
 		out.print("<table border='1'> <tr><th>Product Id</th><th>Product Name</th><th>Product Description</th><th>Price</th><th>Click for add Product</th>");
 		
 		for (Product product : productList) {

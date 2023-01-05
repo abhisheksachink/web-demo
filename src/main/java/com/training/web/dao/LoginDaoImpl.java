@@ -17,6 +17,7 @@ public class LoginDaoImpl implements LoginDao{
 	public List<User> getUsers() {
 		
 		 List<User> userList = new ArrayList<>();
+		 List<User> userList2 = new ArrayList<>();
 		 Connection con = null;
 		
 		try {
@@ -29,8 +30,15 @@ public class LoginDaoImpl implements LoginDao{
 	        con = DriverManager.getConnection(url,user,pass);
 	        Statement stmt = con.createStatement();
 	        ResultSet rs = stmt.executeQuery("select * from user");
+	        ResultSet rs1 = stmt.executeQuery("select * from user_det");
 	        while(rs.next()) {
 	          	userList.add(new User(rs.getString(1), rs.getString(2)));
+	          	
+	        	
+	        }
+	        while(rs1.next()) {
+	          	userList2.add(new User(rs.getString(1), rs.getString(2)));
+	          	
 	        	
 	        }
 	       

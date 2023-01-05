@@ -58,9 +58,9 @@ public class LoginFilter extends HttpFilter implements Filter {
 		
 
 		if(userName.equals("") || password1.equals("")) {
-			out.print("<h2>**Please enter username and password**</h2> <br>");
+//			out.print("<h2>**Please enter username and password**</h2> <br>");
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/index.html");
+			RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
 			rd.include(request, response);
 				
 		}
@@ -73,9 +73,9 @@ public class LoginFilter extends HttpFilter implements Filter {
 		
 		
 		else {
-			out.print("<h2>** Incorrect Login Credentials **</h2> ");
+//			out.print("<h2>** Incorrect Login Credentials **</h2> ");
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/index.html");
+			RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
 			rd.include(request, response);
 		}
 	}
